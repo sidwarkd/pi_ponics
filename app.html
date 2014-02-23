@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="AquaApp">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+        <meta charset="utf-8">
+        <title>Aquaponics Dashboard</title>
+        <title>http://bootply.com/templates</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!-- <link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png"> -->
+
+        <!-- CSS code from Bootply.com editor -->
+        
+        <style type="text/css">
+            .navbar-static-top {
+  margin-bottom:20px;
+}
+
+i {
+  font-size:16px;
+}
+
+.nav > li > a {
+  color:#787878;
+}
+  
+footer {
+  margin-top:20px;
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color:#efefef;
+}
+
+/* count indicator near icons */
+.nav>li .count {
+  position: absolute;
+  bottom: 12px;
+  right: 6px;
+  font-size: 10px;
+  font-weight: normal;
+  background: rgba(51,200,51,0.55);
+  color: rgba(255,255,255,0.9);
+  line-height: 1em;
+  padding: 2px 4px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* indent 2nd level */
+.list-unstyled li > ul > li {
+   margin-left:10px;
+   padding:8px;
+}
+        </style>
+    </head>
+    
+    <!-- HTML code from Bootply.com editor -->
+    
+    <body  >
+        
+        <!-- Header -->
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-toggle"></span>
+      </button>
+      <a class="navbar-brand" href="#">Aquaponics Control Panel</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> Ed <span class="caret"></span></a>
+          <ul id="g-account-menu" class="dropdown-menu" role="menu">
+            <li><a href="#">My Profile</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Log In</a></li>
+      </ul>
+    </div>
+  </div><!-- /container -->
+</div>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container" ng-controller="AppCtrl">
+<div class="row">
+    <div class="col-md-12">
+        
+      <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>  
+      
+        <hr>
+      
+    <div class="row">
+           
+            <!-- center left--> 
+          <div class="col-md-6">
+
+              
+              <div class="panel panel-primary">
+                  <div class="panel-heading"><h4>System Control</h4></div>
+                  <div class="panel-body">
+                    
+                      <hr/>
+                      <div class="btn-group btn-toggle pull-right">
+                        <button type="button" class="btn btn-default" ng-class="[onClass]" ng-click="SetLED(0)">On</button>
+                        <button type="button" class="btn btn-default" ng-class="[offClass]" ng-click="SetLED(1)">Off</button>
+                      </div>
+                      <h3>Pump</h3>
+                      <hr/>
+
+                      <div class="btn-group btn-toggle pull-right">
+                        <button type="button" class="btn btn-info">On</button>
+                        <button type="button" class="btn btn-default">Off</button>
+                      </div>
+                      <h3>Heater</h3>
+                      <hr/>
+                      <div class="btn-group btn-toggle pull-right">
+                        <button type="button" class="btn btn-info">On</button>
+                        <button type="button" class="btn btn-default">Off</button>
+                      </div>
+                      <h3>Lights</h3>
+                      <hr/>
+                      <div class="btn-group btn-toggle pull-right">
+                        <button type="button" class="btn btn-default">On</button>
+                        <button type="button" class="btn btn-info">Off</button>
+                      </div>
+                      <h3>Fan</h3>
+                  </div><!--/panel-body-->
+              </div><!--/panel-->
+
+              <div class="panel panel-primary">
+                  <div class="panel-heading"><h4>Live Feed</h4></div>
+                  <div class="panel-body">
+                    <img src="http://10.0.0.17:9000/?action=stream" height="390" width="520">
+                  </div><!--/panel-body-->
+              </div><!--/panel-->
+       
+            
+   
+            </div><!--/col-->
+          <div class="col-md-6">
+        <div class="panel panel-primary">
+                  <div class="panel-heading"><h4>Temperature</h4></div>
+
+                  <div class="panel-body">
+                    <div class="panel panel-info">
+                      <div class="panel-body">
+                        <h4>Water: <span class="label label-warning pull-right" ng-click="getTemp()">{{temp}}&deg;F</span></h4>
+                        <h4>Grow Bed: <span class="label label-success pull-right">74.6&deg;F</span></h4>
+                      </div>
+                    </div>
+                    
+                    <div id="temp-chart" style="width: 100%; margin: 0 auto"></div>
+                  </div>
+                </div>
+              
+      </div><!--/col-span-6-->
+     
+      </div><!--/row-->
+      
+      <hr>
+      
+    </div><!--/col-span-12-->
+</div><!-- /row -->
+</div><!-- /container -->
+<!-- /Main -->
+
+<footer class="text-center">&copy;2014 HardlySoftware, LLC</footer>
+
+<div class="modal" id="addWidgetModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Add Widget</h4>
+      </div>
+      <div class="modal-body">
+        <p>Add a widget stuff here..</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn">Close</a>
+        <a href="#" class="btn btn-primary">Save changes</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dalog -->
+</div><!-- /.modal -->
+  
+    
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+    <script type='text/javascript' src="https:////ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-route.js"></script>
+    <script type='text/javascript' src="js/app.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script type='text/javascript' src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
